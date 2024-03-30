@@ -5,6 +5,8 @@ import com.spring.learn.pojo.Student;
 import com.spring.learn.serviceImpl.studentServiceImpl;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,10 +39,10 @@ public class Mapping {
     }
 
     @PostMapping()
-    public String deleteStudentsById(@RequestBody Student student)
+    public ResponseEntity<String> createStudentsById(@RequestBody Student student)
     {
        studentService.createStudent(student);
-       return "student added";
+       return new ResponseEntity<>("student added", HttpStatus.CREATED);
     }
 
 }
