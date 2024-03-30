@@ -59,7 +59,7 @@ public class studentServiceImpl implements studentService {
                 al.add(new Student(student.getStudentId(), student.getName(), student.getCollege(), student.getDob()));
 
             else
-                throw new DuplicateValueFoundException("id is already present");
+                throw new DuplicateValueFoundException("Already found the studentId "+student.getStudentId()+" in db : ");
         }
 
 
