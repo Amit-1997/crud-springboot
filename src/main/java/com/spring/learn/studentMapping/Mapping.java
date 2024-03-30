@@ -36,4 +36,11 @@ public class Mapping {
         return studentService.deleteStudent(id);
     }
 
+    @PostMapping()
+    public String deleteStudentsById(@RequestBody Student student)
+    {
+       studentService.createStudent(student);
+       return "student added";
+    }
+
 }

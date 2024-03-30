@@ -1,6 +1,7 @@
 package com.spring.learn.serviceImpl;
 
 
+import com.spring.learn.Exception.DuplicateValueFoundException;
 import com.spring.learn.Exception.ResourceNotFoundException;
 import com.spring.learn.pojo.Student;
 import com.spring.learn.service.studentService;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class studentServiceImpl implements studentService {
+
 
     @Autowired
     private Student student;
@@ -45,7 +48,21 @@ public class studentServiceImpl implements studentService {
     @Override
     public void createStudent(Student student) {
 
-    }
+        Optional<Student> student1=al.stream().filter(e->
+        {
+            if(e.getStudentId()==student.getStudentId())
+                return true;
+            return false;
+        }).findFirst();
+
+        if(student1.isEmpty())
+                al.add(new Student(student.getStudentId(), student.getName(), student.getCollege(), student.getDob()));
+
+            else
+                throw new DuplicateValueFoundException("id is already present");
+        }
+
+
 
     @Override
     public List<Student> deleteStudent(int id) {
